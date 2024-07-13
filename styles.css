@@ -1,0 +1,234 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.scene {
+    perspective: 1000px;
+    height: 100vh;
+    overflow: hidden;
+    background: #0a0a2a;
+    position: relative;
+}
+
+.sky {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 40%;
+    background: linear-gradient(to bottom, #0a0a2a, #1a1a4a);
+    animation: skyChange 30s infinite alternate;
+}
+
+.stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 40%;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 90px 40px, #ddd, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    animation: twinkle 5s infinite;
+    opacity: 0;
+}
+
+.moon {
+    position: absolute;
+    top: 50px;
+    right: 100px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 20px #fff;
+    opacity: 0;
+    animation: moonRise 30s infinite alternate;
+}
+
+.sun {
+    position: absolute;
+    top: -100px;
+    left: 100px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #ff9900;
+    box-shadow: 0 0 50px #ffcc00;
+    animation: sunMove 30s infinite alternate;
+}
+
+.city {
+    position: absolute;
+    bottom: 40%;
+    left: 0;
+    right: 0;
+    height: 30%;
+}
+
+.building {
+    position: absolute;
+    bottom: 0;
+    height: var(--height);
+    width: var(--width);
+    left: var(--left);
+    background: #333;
+    animation: buildingLight 5s infinite alternate;
+}
+
+.building::after {
+    content: '';
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    right: 10%;
+    bottom: 5%;
+    background: repeating-linear-gradient(
+        to bottom,
+        #555 0%,
+        #555 10%,
+        #444 10%,
+        #444 20%
+    );
+}
+
+.road {
+    position: absolute;
+    bottom: 0;
+    left: -50%;
+    right: -50%;
+    height: 40%;
+    background: #1a1a1a;
+    transform: rotateX(60deg);
+    transform-origin: bottom;
+}
+
+.lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        to right,
+        transparent 0%,
+        transparent 48%,
+        #fff 48%,
+        #fff 52%,
+        transparent 52%,
+        transparent 100%
+    );
+    background-size: 120px 100%;
+    animation: moveLines 1s linear infinite;
+}
+
+.car {
+    position: absolute;
+    width: 80px;
+    height: 40px;
+    bottom: 8%;
+    animation: moveCar 8s linear infinite;
+}
+
+.car::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    right: 10px;
+    height: 16px;
+    background: inherit;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+.car::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+    right: 5px;
+    height: 6px;
+    background: #000;
+    border-radius: 0 0 4px 4px;
+}
+
+.car1 { background: #ff4d4d; left: 20%; animation-delay: -2s; }
+.car2 { background: #4d4dff; left: 50%; animation-delay: -4s; }
+.car3 { background: #4dff4d; left: 80%; animation-delay: -6s; }
+
+.tree {
+    position: absolute;
+    bottom: 40%;
+    width: 60px;
+    height: 100px;
+}
+
+.tree::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 45%;
+    width: 10px;
+    height: 30px;
+    background: #4d2600;
+}
+
+.tree::after {
+    content: '';
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    width: 60px;
+    height: 70px;
+    background: #00802b;
+    border-radius: 50% 50% 20% 20%;
+}
+
+.tree1 { left: 5%; }
+.tree2 { left: 45%; }
+.tree3 { right: 5%; }
+
+@keyframes skyChange {
+    0%, 100% { background: linear-gradient(to bottom, #0a0a2a, #1a1a4a); }
+    50% { background: linear-gradient(to bottom, #4a1a1a, #8a2a2a); }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.4; }
+}
+
+@keyframes moonRise {
+    0%, 40% { opacity: 0; transform: translateY(100px); }
+    50%, 90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-100px); }
+}
+
+@keyframes sunMove {
+    0%, 40% { transform: translate(-200px, 200px); }
+    60%, 100% { transform: translate(200px, -200px); }
+}
+
+@keyframes buildingLight {
+    0%, 100% { background-color: #333; }
+    50% { background-color: #444; }
+}
+
+@keyframes moveLines {
+    0% { background-position: 0 0; }
+    100% { background-position: -120px 0; }
+}
+
+@keyframes moveCar {
+    0% { transform: translateY(0) rotateX(0); }
+    25% { transform: translateY(-20px) rotateX(-5deg); }
+    75% { transform: translateY(-10px) rotateX(-2deg); }
+    100% { transform: translateY(0) rotateX(0); }
+}
